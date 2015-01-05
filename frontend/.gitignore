@@ -1,0 +1,8 @@
+node_modules/
+dist
+dev
+release
+bower_components
+./**/*.DS_Store
+.sass-cache
+src/main/spec/coverage/
