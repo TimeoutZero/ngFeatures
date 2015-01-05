@@ -1,4 +1,6 @@
-# * === Alpha Version Coming Soon === *
+#Alpha Version Coming Soon...
+
+![Omakase](logo.png "Omakase ngFeatures")
 
 # English
 
