@@ -47,6 +47,9 @@ $ sudo npm install
 $ bower install
 ```
 
+## FeedBack
+Open an [issue](https://github.com/TimeoutZero/ngFeatures/issues/new)
+
 ## Authors
 
 [![Carlos Henrique](https://avatars0.githubusercontent.com/u/2482989?v=3&s=96)](https://github.com/GabrielGarcia1) | [![Bruno Fachine](https://avatars3.githubusercontent.com/u/3225834?v=3&s=96)](https://github.com/BrunoDF)
