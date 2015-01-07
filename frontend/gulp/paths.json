@@ -8,6 +8,7 @@
      },
 
     "css" : {
+      "mainCssFileName" : "vendors",
       "sourceFiles": "vendors/**/*.css" 
     } 
       
@@ -21,6 +22,10 @@
     "sass": {
       "sourceFiles" : "src/**/*.{sass, scss}",
       "mainSassFile": "src/main/styles/app.sass"
+    },
+
+    "css" : {
+      "mainCssFileName" : "app"
     },
 
     "html": {
@@ -52,9 +57,10 @@
       "videos" : "builds/dev/resources/videos/**/*"
     },
     "files"              : ["builds/dev/scripts/**/*", "builds/dev/styles/**/*", "builds/dev/views/**/*", "builds/dev/img/**/*", "builds/dev/index.html"],
-    "vendorsCssFile"     : "builds/dev/styles/vendors.min.css",
+    "vendorsCssFile"     : "builds/dev/styles/vendors.css",
     "jsFiles"            : "builds/dev/scripts/**/*",
     "cssFiles"           : "builds/dev/styles/**/*",
+
     "htmlFiles"          : "builds/dev/views/**/*",
     "imgFiles"           : "builds/dev/img/**/*"
      

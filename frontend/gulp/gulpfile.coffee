@@ -101,7 +101,6 @@ minifyStyles = (options) ->
 concat = (options) ->
   gulp.src options.paths
     .pipe plumberPlugin()
-    .pipe rename basename: options.renameTo, extname: options.extensionName
     .pipe concatPlugin(options.renameTo)
     .pipe gulp.dest options.dest
 
@@ -294,7 +293,7 @@ gulp.task 'install'                      , [                          ], install
 gulp.task 'buildVendorsSASS'             , ['install'                 ], -> 
   buildSASS( 
     paths         : paths.vendors.sass.mainSassFile
-    renameTo      : 'vendors'
+    renameTo      : paths.vendors.css.mainCssFileName
     extensionName : '.css'
     dest          : paths.dev.cssDirectory
   )
@@ -302,14 +301,14 @@ gulp.task 'buildVendorsSASS'             , ['install'                 ], ->
 gulp.task 'buildVendorsStyles'           , ['buildVendorsSASS'        ], -> 
   concat(
     paths: [paths.vendors.css.sourceFiles, paths.dev.vendorsCssFile]
-    renameTo: 'vendors.css'
+    renameTo: paths.vendors.css.mainCssFileName + '.css'
     dest: paths.dev.cssDirectory
   )
 
 gulp.task 'buildAppStyles'               , ['cleanDev'                ], ->
   buildSASS( 
     paths         : paths.source.sass.mainSassFile
-    renameTo      : 'app'
+    renameTo      : paths.source.css.mainCssFileName
     extensionName : '.css'
     dest          : paths.dev.cssDirectory
   )
