@@ -26,117 +26,29 @@ useminPlugin          = require 'gulp-usemin'
 obfuscatePlugin       = require 'gulp-obfuscate'
 regexReplacePlugin    = require 'gulp-regex-replace'
 gulpSassPlugin        = require 'gulp-sass'
-
-
-
-# ==================================
-# General Variables
-# ==================================
-projectName =
-  fileName     : 'my-angular-omakase'
-  officialName : 'MyAngularOmakase'
-
-LIVE_RELOAD_PORT = 35729
-
-
-buildMode =
-  dev  : 'Dev'
-  prod : 'Prod'
+fs                    = require 'fs'
 
 
 # ==================================
 # Path Variables
 # ==================================
+paths = {}
+  
 
-bowerDirectory = 'bower_components/**/*'
+# ==================================
+# Setup
+# ==================================
 
-paths =
-  vendors :
-    scripts      : 'vendors/**/*.js'
-    sass:
-      sourceFiles : 'vendors/**/*.{sass, scss}'
-      mainSassFile: 'vendors/vendors.sass'
-    css :
-      sourceFiles : 'vendors/**/*.css'
-
-
-  source :
-    coffee:
-      sourceFiles : ['src/**/*.coffee']
-    sass:
-      sourceFiles : 'src/**/*.{sass, scss}'
-      mainSassFile: "src/main/styles/app.sass"
-    html:
-      sourceFiles : ['src/**/*.html', '!src/**/*.js.html', '!src/**/index.html']
-    img:
-      sourceFiles : 'src/**/img/**/*.*'
-    resourcesFiles: 'src/main/resources/**/*'
-    indexFile: 'src/main/index.html'
+readJSON = (filename) ->
+  blob = fs.readFileSync(filename, 'utf8')
+  return JSON.parse(blob)
 
 
-
-  dev :
-    directory          : 'builds/dev/'
-    jsDirectory        : 'builds/dev/scripts/'
-    cssDirectory       : 'builds/dev/styles/'
-    htmlDirectory      : 'builds/dev/views/'
-    imgDirectory       : 'builds/dev/img/'
-    indexFile          : 'builds/dev/index.html'
-    libsDirectory      : 'builds/dev/libs/'
-    resourcesDirectory : 'builds/dev/resources/'
-    resourcesFiles     :
-      fonts  : 'builds/dev/resources/fonts/**/*'
-      videos : 'builds/dev/resources/videos/**/*'
-    files              : ['builds/dev/scripts/**/*', 'builds/dev/styles/**/*', 'builds/dev/views/**/*', 'builds/dev/img/**/*', 'builds/dev/index.html']
-    vendorsCssFile     : 'builds/dev/styles/vendors.min.css'
-    jsFiles            : 'builds/dev/scripts/**/*'
-    cssFiles           : 'builds/dev/styles/**/*'
-    htmlFiles          : 'builds/dev/views/**/*'
-    imgFiles           : 'builds/dev/img/**/*'
-
-  release :
-    directory           : 'builds/release/'
-    indexFile           : 'builds/release/index.html'
-    htmlDirectory       : 'builds/release/views/'
-    htmlFiles           : 'builds/release/views/**/*'
-    cssDirectory        : 'builds/release/styles/'
-    cssFiles            : 'builds/release/styles/**/*'
-    jsDirectory         : 'builds/release/scripts/'
-    jsFiles             : 'builds/release/scripts/**/*'
-    imgDirectory        : 'builds/release/img/'
-    imgFiles            : 'builds/release/img/**/*'
-    resourcesDirectory  :
-      fonts  : 'builds/release/resources/fonts/'
-      videos : 'builds/release/resources/videos/'
-    resourcesFiles  :
-      fonts  : 'builds/release/resources/fonts/**/*'
-      videos : 'builds/release/resources/videos/**/*'
-
-  spec :
-    js:
-      directory   : 'builds/dev/spec/'
-      sourceFiles : [
-        'builds/dev/libs/jquery/jquery.js',
-        'builds/dev/libs/angular/angular.js',
-        'builds/dev/libs/underscore/underscore.js',
-        'builds/dev/libs/angular-ui-router/release/angular-ui-router.js',
-        'builds/dev/libs/angular-mocks/angular-mocks.js',
-        'builds/dev/libs/angular-sanitize/angular-sanitize.js',
-        'builds/dev/libs/angular-bootstrap/ui-bootstrap-tpls.js',
-        'builds/dev/libs/underscore-string.js',
-        'builds/dev/libs/momentjs/min/moment-with-langs.js',
-        'builds/dev/libs/quick-ng-repeat/quick-ng-repeat.js',
-        'builds/dev/scripts/main/scripts/app.js',
-        'builds/dev/scripts/components/**/*.js',
-        'builds/dev/scripts/features/**/*.js',
-        'builds/dev/scripts/main/scripts/config/**/*.js',
-        'builds/dev/scripts/main/scripts/constants/**/*.js',
-        'builds/dev/scripts/main/scripts/runners/**/*.js',
-        'builds/dev/views/**/*.html',
-        'builds/dev/scripts/**/specs/**/*.js'
-        'builds/dev/scripts/main/specs/utils/**/*.js'
-      ]
-
+setup = (done) ->
+  pathsJSON = readJSON('gulp/paths.json')
+  _(paths).extend pathsJSON
+  
+  done()
 
 # ==================================
 # Vendors
@@ -155,7 +67,7 @@ gitCheck = (done) ->
 
 # Install Bower Components
 # ======================
-install = ->
+install = () ->
   unless shellPlugin.which('bower')
     gutil.log gutil.colors.red '=== BOWER IS NOT INSTALLED === ..Abort!!'
     process.exit 1
@@ -173,10 +85,10 @@ install = ->
 # ======================
 buildVendorsSASS = ->
   gulp.src paths.vendors.sass.mainSassFile
-     .pipe gulpSassPlugin(indentedSyntax: yes)
-     .pipe minifyCssPlugin keepSpecialComments: 0
-     .pipe rename basename: 'vendors', extname: '.min.css'
-     .pipe gulp.dest paths.dev.cssDirectory
+    .pipe gulpSassPlugin(indentedSyntax: yes)
+    .pipe minifyCssPlugin keepSpecialComments: 0
+    .pipe rename basename: 'vendors', extname: '.min.css'
+    .pipe gulp.dest paths.dev.cssDirectory
 
 # Build CSS
 # ======================
@@ -192,7 +104,7 @@ buildVendorsScripts = ->
   gulp.src paths.vendors.scripts
     .pipe gulp.dest(paths.dev.libsDirectory)
 
-  gulp.src bowerDirectory
+  gulp.src paths.bowerDirectory
     .pipe gulp.dest(paths.dev.libsDirectory)
 
 # ==================================
@@ -258,9 +170,6 @@ includeSources = ->
 # Watch files
 # ==================================
 watch = ->
-
-  # liveReloadPlugin.listen(LIVE_RELOAD_PORT)
-  # gulp.watch(paths.dev.files).on 'change', liveReloadPlugin.changed
 
   # SASS Files
   # ==================
@@ -434,7 +343,8 @@ gulp.task 'runAppTests', [], -> runAppTestsFunction('run')
 
 # Dev Distribuition tasks
 # =======================
-gulp.task 'cleanDev'                    , [                           ], cleanDev
+gulp.task 'setup'                        , [                          ], setup
+gulp.task 'cleanDev'                     , ['setup'                   ], cleanDev
 gulp.task 'gitCheck'                     , ['cleanDev'                ], gitCheck
 gulp.task 'install'                      , ['gitCheck'                ], install
 gulp.task 'buildVendorsSASS'             , ['install'                 ], buildVendorsSASS
