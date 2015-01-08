@@ -1,0 +1,120 @@
+
+.myo-main-menu.main-bar
+  width         : 100%
+  background    : url('../img/main/img/patterns/quad-pattern.png') repeat, #FFFFFF
+  height        : $mainBarHeight
+  position      : fixed
+  top           : 0
+  left          : 0
+  z-index       : 3
+
+
+
+  .main-bar-content
+    max-width    : 1024px
+    margin-left  : auto
+    margin-right : auto
+    height       : $mainBarHeight
+
+  .main-item-list
+    display     : inline-block
+    list-style  : none
+    position    : absolute
+    line-height : $mainBarHeight
+    height      : $mainBarHeight
+    margin-left : 100px 
+    @extend %font-open-sans-semibold
+
+    .menu-item
+      display: inline-block
+      margin-right: $marginDefault * 4
+
+      .item-trigger
+        color   : rgba(#000000, 0.5)
+        cursor  : pointer
+        +transition(color, color, 0.3s)
+        text-decoration: none
+
+        &.active, &:hover
+          color  : #000000
+
+  // User menu
+  .user-menu-container
+    $userOptionHeight : 50px
+    min-width: 180px
+
+    .user-container 
+      height      : $mainBarHeight
+      line-height : $mainBarHeight
+      color       : #FFFFFF
+      padding: 0 $paddingDefault
+      border-left : 1px solid #FFFFFF
+      
+      @extend %font-open-sans-semibold
+
+
+      .user-image
+        +borderRadius(100%)
+        margin: 0 $marginDefault
+
+
+
+    .user-options
+      list-style  : none
+      display     : none
+      color       : #000000
+      @extend %font-open-sans-light-italic
+      
+      .user-option
+        display     : block
+        text-align  : center
+        height      : $userOptionHeight
+        background  : #FFFFFF
+        line-height : $userOptionHeight
+        border-top  : 1px solid #FFFFFF
+
+        &:first-child
+          border-top : none
+
+        &:last-child
+          border-bottom : 1px solid #FFFFFF
+
+
+    // User menu active
+    &:hover
+      cursor: pointer
+      color       : #FFFFFF
+
+      .user-container
+        background: $beautyGreeenColor
+
+      .user-options
+        display     : block
+
+        .user-option:hover
+          background  : $beautyGreeenColor
+          color       : #FFFFFF
+
+
+
+  .brand-logo
+    background : url('../img/logo_sony.png') center center no-repeat
+    cursor     : pointer
+    height     : $mainBarHeight
+    margin     : 0 10px
+    width      : 75px
+    float      : left
+
+  
+  .omakase-logo
+    background  : url('../img/main/img/logos/omakase-logo.png') center center no-repeat
+    background-size: 121px 40px
+    cursor      : pointer
+    height      : $mainBarHeight
+    left        : 50%
+    margin-left : -149px
+    position    : absolute
+    top         : 0
+    width       : 298px
+
+  

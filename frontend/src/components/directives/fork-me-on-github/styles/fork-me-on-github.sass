@@ -1,9 +1,22 @@
 
 .fork-me-on-github
-  background : url('../img/components/directives/fork-me-on-github/img/ForkMeOnGitHub.png') no-repeat
-  background-size: cover
   position   : fixed
-  top        : 0
-  right      : 0
-  width      : 180px
-  height     : 180px  
+  z-index    : 9999
+
+  &.top-right
+    background : url('../img/components/directives/fork-me-on-github/img/ForkMeOnGitHub.png') no-repeat
+    background-size: cover
+    top        : 0
+    right      : 0
+    width      : 140px
+    height     : 140px
+    
+
+  &.blue-circle
+    background      : url('../img/components/directives/fork-me-on-github/img/github-circle.png') no-repeat
+    background-size : cover
+    top             : 110px
+    width           : 100px
+    height          : 100px
+    left            : 50%
+    margin-left     : -50px

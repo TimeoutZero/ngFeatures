@@ -3,3 +3,5 @@ scripts/components/directives/notify-on-finish-ng-repeat/scripts/notify-on-finis
 scripts/components/directives/fork-me-on-github/scripts/fork-me-on-github-directive.js
 
 scripts/components/filters/messages/messages-filter.js
+
+scripts/components/directives/main-bar/scripts/main-bar-directive.js

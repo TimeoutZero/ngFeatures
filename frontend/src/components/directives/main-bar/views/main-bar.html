@@ -1,0 +1,45 @@
+<header class="myo-main-menu main-bar animated fadeIn">
+  
+  <div class="main-bar-content">
+    
+    <!-- Menu Items -->
+    <ul ng-if="hasMenu === true" class="main-item-list">
+      <li class="menu-item" ng-repeat="menuItem in menuItems track by menuItem.parentState">
+        <a 
+          ui-sref="{{menuItem.mainState}}" 
+          ng-bind="menuItem.name"
+          ng-class="{
+            'item-trigger' : true,
+            active         : menuItem.parentState === currentParentState
+            }">
+        </a>
+      </li>
+    </ul>
+    
+    <!-- Logo -->
+    <div class="omakase-logo"></div>
+
+    <!-- User -->
+    <div 
+      ng-if="hasUser === true"
+      class="user-menu-container pull-right"
+      ng-mouseenter="isOpen = true" 
+      ng-mouseleave="isOpen = false">
+      <div class="user-container">
+        <img class="user-image " ng-src="{{user.urlFoto}}" alt="" width="38" height="38">
+        <label class="user-name no-padding no-margin text-align-center" ng-bind="user.nome.split(' ')[0]"></label>
+        &nbsp; <i class="glyphicon" ng-class="{'glyphicon-chevron-up': isOpen, 'glyphicon-chevron-down': !isOpen}"></i>
+      </div>
+      <ul class="user-options no-padding">
+        <li class="user-option " ui-sref="alteraSenha">
+          Alterar senha
+        </li>
+        <li class="user-option" ng-click="loggout()">
+          Sair
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  
+</header>

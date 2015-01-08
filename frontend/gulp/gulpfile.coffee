@@ -61,23 +61,20 @@ feedback =
   info : () ->
     unless options.name and options.message then throw new Error("#{gutil.colors.red(' === Invalid info feedback === ')}")
 
-    gutil.log """ 
-      [#{gutil.colors.cyan(options.name)}] : #{options.message} \n
-    """
+    gutil.log """ [#{gutil.colors.cyan(options.name)}] : #{options.message} \n """
 
   error : (options) ->
     unless options.name and options.message then throw new Error("#{gutil.colors.red('=== Invalid error feedback === ')}")
 
-    gutil.log """
-      [#{gutil.colors.red(options.name)}] \n
+    gutil.log """ [#{gutil.colors.red(options.name)}] \n
       #{gutil.colors.red(options.message)} \n
     """
 
   fromWatcher: (options) ->
     unless options.name and options.file then throw new Error("#{gutil.colors.red('=== Invalid fromWatcher feedback === ')}")
 
-    gutil.log """ 
-      [#{gutil.colors.cyan(options.name)}] : #{gutil.colors.magenta( _.last(options.file.path.split('/')) )} was changed \n
+    gutil.log """ [#{gutil.colors.cyan(options.name)}] : 
+      #{gutil.colors.magenta( _.last(options.file.path.split('/')) )} was changed \n
     """
 
 buildSASS = (options) ->
