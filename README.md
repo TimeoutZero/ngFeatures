@@ -48,6 +48,23 @@ $ sudo npm install
 $ bower install
 ```
 
+
+## Tasks
+ You can execute tasks using 
+ 
+ ```bash
+ gulp {taskName}
+ ```
+ 
+  * `default`: This task is executed if you not define the `taskName`.
+  * `watch`  : Watch files changes and execute some callback.
+  * `dev`    : It will start development process, it will execute the `default` task and the `watch` task.
+  * `release` : It will start release process (production version of your code), it will execute `default` task and release tasks.
+  
+***
+ See details on [gulpfile README.md](https://github.com/TimeoutZero/ngFeatures/tree/master/frontend/gulp)
+
+
 ## FeedBack
 Open an [issue](https://github.com/TimeoutZero/ngFeatures/issues/new)
 
