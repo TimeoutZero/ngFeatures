@@ -89,7 +89,6 @@
   
   "spec" : {
     "js" : {
-      "directory"   : "builds/dev/spec/",
       "sourceFiles" : [
         "builds/dev/libs/jquery/jquery.js",
         "builds/dev/libs/angular/angular.js",
@@ -104,9 +103,7 @@
         "builds/dev/scripts/main/scripts/app.js",
         "builds/dev/scripts/components/**/*.js",
         "builds/dev/scripts/features/**/*.js",
-        "builds/dev/scripts/main/scripts/config/**/*.js",
-        "builds/dev/scripts/main/scripts/constants/**/*.js",
-        "builds/dev/scripts/main/scripts/runners/**/*.js",
+        "builds/dev/scripts/main/scripts/**/*.js",
         "builds/dev/views/**/*.html",
         "builds/dev/scripts/**/specs/**/*.js",
         "builds/dev/scripts/main/specs/utils/**/*.js"

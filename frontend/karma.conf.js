@@ -14,18 +14,8 @@ module.exports = function(config) {
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
 
-    // list of files / patterns to load in the browser
-    // files: [
-    //   'dev/libs/angular/angular.js',
-    //   'dev/libs/jquery/jquery.js',
-    //   'dev/libs/underscore/underscore.js',
-    //   'dev/libs/angular-ui-router/release/angular-ui-router.js',
-    //   'dev/libs/angular-mocks/angular-mocks.js',
-    //   'dev/libs/angular-sanitize/angular-sanitize.js',
-    //   'dev/scripts/**/*.js',
-    //   'dev/views/**/*.html',
-    //   'spec/**/*.js'
-    // ],
+    // list of files is defined on paths.json as spec.js.sourceFiles
+    // files: [],
 
     // list of files / patterns to exclude
     exclude: [
@@ -48,13 +38,13 @@ module.exports = function(config) {
 
     // Preprocessors
     preprocessors: {
-      'dev/views/**/*.html' : ['ng-html2js'],
-      'dev/scripts/**/*.js' : ['coverage']
+      'builds/dev/views/**/*.html' : ['ng-html2js'],
+      'builds/dev/scripts/**/*.js' : ['coverage']
     },
 
     // HTML to JS
     // ngHtml2JsPreprocessor: {
-    //   stripPrefix : 'dev/'
+    //   stripPrefix : 'builds/dev/'
     // },
 
     // Reporters - Generates the Coverage
@@ -69,7 +59,7 @@ module.exports = function(config) {
       subdir: 'report-lcov',
 
       // output path
-      dir : 'src/main/spec/coverage/'
+      dir : 'src/main/specs/coverage/'
     },
 
     // Which plugins to enable

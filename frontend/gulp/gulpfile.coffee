@@ -246,16 +246,6 @@ optimizeImgInReleaseFolder = ->
     .pipe(minifyImagesPlugin())
     .pipe gulp.dest(paths.release.imgDirectory)
 
-# Ofuscates Javascript
-# ======================
-ofuscateJSFiles = ->
-  gulp.src paths.release.jsFiles
-    .pipe obfuscatePlugin(
-      exclude       : ['angular', '_', '$', 'jQuery', 'videojs', '_V_', 'FB', '$injector']
-    )
-    .pipe gulp.dest(paths.release.jsDirectory)
-
-
 
 # ==================================
 # Spec
@@ -265,12 +255,11 @@ ofuscateJSFiles = ->
 # ======================
 runAppTestsFunction = (actionString) ->
   gulp.src(paths.spec.js.sourceFiles)
+    .pipe plumberPlugin()
     .pipe( karmaPlugin
       configFile: 'karma.conf.js'
       action    : actionString
     )
-    .on 'error', (err) ->
-      console.log 'runAppTests: ' + err
 
 gulp.task 'runAppTests', [], -> runAppTestsFunction('run')
   
@@ -285,7 +274,7 @@ gulp.task 'runAppTests', [], -> runAppTestsFunction('run')
 # =======================
 gulp.task 'setup'                        , [                          ], setup
 gulp.task 'cleanDev'                     , ['setup'                   ], -> clean(paths.dev.directory)
-gulp.task 'install'                      , [                          ], install
+gulp.task 'install'                      , ['setup'                   ], install
 
 gulp.task 'buildVendorsSASS'             , ['install'                 ], -> 
   buildSASS( 
@@ -353,7 +342,6 @@ gulp.task 'copyCssToReleaseFolder'        , ['cleanRelease'             ], -> co
 gulp.task 'copyImgToReleaseFolder'        , ['cleanRelease'             ], -> copy( paths: paths.dev.imgFiles, dest: paths.release.imgDirectory)
 gulp.task 'optimizeImgInReleaseFolder'    , ['copyImgToReleaseFolder'   ], optimizeImgInReleaseFolder
 gulp.task 'copyResourcesToReleaseFolder'  , ['cleanRelease'             ], -> copy( paths: paths.dev.resourcesFiles.fonts , dest: paths.release.resourcesDirectory.fonts )
-gulp.task 'ofuscateJSFiles'               , ['proccessIndexFile'        ], ofuscateJSFiles
 
 gulp.task 'buildRelease', [
   'cleanRelease'
@@ -374,10 +362,12 @@ gulp.task 'buildToServerTest' , ['default']
 
 # Test tasks
 # =======================
-gulp.task 'test'          , [], -> runAppTestsFunction('watch')
-gulp.task 'spec'          , ['test']
+gulp.task 'buildVendorsScriptsToTests'          , [ 'install'             ], -> copy(paths: [paths.vendors.scripts, paths.bowerDirectory], dest: paths.dev.libsDirectory)
+gulp.task 'buildAppScriptsToTests'              , [ 'setup'               ], buildAppScripts
 
-gulp.task 'watchTests'          , [], -> runAppTestsFunction('watch')
-gulp.task 'debugTests'          , ['test']
+gulp.task 'test'          , ['buildVendorsScriptsToTests', 'buildAppScriptsToTests'], -> runAppTestsFunction('watch')
+gulp.task 'spec'          , ['test']
+gulp.task 'watchTests'    , ['test']
+gulp.task 'debugTests'    , ['test']
 
 
