@@ -52,10 +52,7 @@
     "indexFile"           : "builds/dev/index.html",
     "libsDirectory"       : "builds/dev/libs/",
     "resourcesDirectory"  : "builds/dev/resources/",
-    "resourcesFiles"      : {
-      "fonts"  : "builds/dev/resources/fonts/**/*",
-      "videos" : "builds/dev/resources/videos/**/*"
-    },
+    "resourcesFiles"      : ["builds/dev/resources/**/*", "!builds/dev/resources/include-source-list"],
     "files"              : ["builds/dev/scripts/**/*", "builds/dev/styles/**/*", "builds/dev/views/**/*", "builds/dev/img/**/*", "builds/dev/index.html"],
     "vendorsCssFile"     : "builds/dev/styles/vendors.css",
     "jsFiles"            : "builds/dev/scripts/**/*",

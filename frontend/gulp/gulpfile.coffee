@@ -73,8 +73,7 @@ feedback =
   fromWatcher: (options) ->
     unless options.name and options.file then throw new Error("#{gutil.colors.red('=== Invalid fromWatcher feedback === ')}")
 
-    gutil.log """ [#{gutil.colors.cyan(options.name)}] : 
-      #{gutil.colors.magenta( _.last(options.file.path.split('/')) )} was changed \n
+    gutil.log """ [#{gutil.colors.cyan(options.name)}] : #{gutil.colors.magenta( _.last(options.file.path.split('/')) )} was changed \n
     """
 
 buildSASS = (options) ->
@@ -196,7 +195,7 @@ watch = ->
   # ==================
   gulp.watch(paths.source.img.sourceFiles).on('change', (e) ->
     copy( paths: paths.source.img.sourceFiles, dest: paths.dev.imgDirectory )
-      .on 'end', -> feedback.fromWatcher( name: 'CopyImgToDevFolder', file: e)
+      .on 'end', -> feedback.fromWatcher( name: 'ImagesWatcher', file: e)
   )
 
   # Resources
@@ -204,7 +203,7 @@ watch = ->
   gulp.watch(paths.source.resourcesFiles).on('change', (e) ->
     copy( paths: paths.source.resourcesFiles, dest: paths.dev.resourcesDirectory)
       .on 'end', -> copy( paths: paths.source.indexFile, dest: paths.dev.directory).on 'end', includeSources
-        .on 'end', -> feedback.fromWatcher( name: 'CopyResourcesToDevFolder', file: e)
+        .on 'end', -> feedback.fromWatcher( name: 'ResourcesWatcher', file: e)
   )
 
 # ==================================
@@ -274,7 +273,7 @@ gulp.task 'runAppTests', [], -> runAppTestsFunction('run')
 # =======================
 gulp.task 'setup'                        , [                          ], setup
 gulp.task 'cleanDev'                     , ['setup'                   ], -> clean(paths.dev.directory)
-gulp.task 'install'                      , ['setup'                   ], install
+gulp.task 'install'                      , ['setup', 'cleanDev'       ], install
 
 gulp.task 'buildVendorsSASS'             , ['install'                 ], -> 
   buildSASS( 
@@ -310,6 +309,7 @@ gulp.task 'runDevTests'                  , ['buildAppScripts', 'buildVendorsScri
 
 
 gulp.task 'default', [
+  'setup' 
   'cleanDev'
   'install'
   'buildVendorsSASS'
@@ -336,14 +336,15 @@ gulp.task 'buildDev'  , ['default']
 # =======================
 gulp.task 'cleanRelease'                  , ['default'                  ], -> clean(paths.release.directory)
 gulp.task 'proccessIndexFile'             , ['cleanRelease'             ], proccessIndexFile
-gulp.task 'copyMarkupToReleaseFolder'     , ['proccessIndexFile'        ], -> copy( paths: paths.dev.htmlFiles, dest: paths.release.htmlDirectory)
+gulp.task 'copyMarkupToReleaseFolder'     , ['proccessIndexFile'        ], -> copy( paths: paths.source.html.sourceFiles, dest: paths.release.htmlDirectory)
 gulp.task 'minifyMarkupInReleaseFolder'   , ['copyMarkupToReleaseFolder'], minifyMarkupInReleaseFolder
 gulp.task 'copyCssToReleaseFolder'        , ['cleanRelease'             ], -> copy( paths: paths.dev.cssFiles, dest: paths.release.cssDirectory)
 gulp.task 'copyImgToReleaseFolder'        , ['cleanRelease'             ], -> copy( paths: paths.dev.imgFiles, dest: paths.release.imgDirectory)
 gulp.task 'optimizeImgInReleaseFolder'    , ['copyImgToReleaseFolder'   ], optimizeImgInReleaseFolder
-gulp.task 'copyResourcesToReleaseFolder'  , ['cleanRelease'             ], -> copy( paths: paths.dev.resourcesFiles.fonts , dest: paths.release.resourcesDirectory.fonts )
+gulp.task 'copyResourcesToReleaseFolder'  , ['cleanRelease'             ], -> copy( paths: paths.dev.resourcesFiles , dest: paths.release.resourcesDirectory.fonts )
 
 gulp.task 'buildRelease', [
+  'default'
   'cleanRelease'
   'proccessIndexFile'
   'copyMarkupToReleaseFolder'
