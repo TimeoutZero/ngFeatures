@@ -6,9 +6,10 @@
 angular.module 'MyAngularOmakase.filters' 
 
   .filter 'EnumMessagesFilter', [ ->
+    
     # Portuguese Messages
     # ==========================
-    @messagesPTBR =
+    messagesPTBR =
 
       # General Messages
       # ==========================
@@ -24,17 +25,17 @@ angular.module 'MyAngularOmakase.filters'
       "user.does.not.exist"       : "Usuário não encontrado"
       "username.already.exists"   : "Nome de usuário já existente"
 
-    @get = (property) ->
-      return @messagesPTBR["#{property}"]
+    get = (property) ->
+      return messagesPTBR["#{property}"]
 
-    @getAll = ->
-      return @messagesPTBR
+    getAll = ->
+      return messagesPTBR
 
-    @filter = ->
-      get     : @get
-      getAll  : @getAll 
+    filter = ->
+      get     : get
+      getAll  : getAll 
 
-    return @filter
+    return filter
 
   ]
 
