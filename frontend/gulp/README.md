@@ -4,8 +4,9 @@ You can execute tasks using `gulp {taskName}`
 ## Major Tasks
   * `default`: This task is executed if you not define the `taskName`.
   * `watch`  : Watch files changes and execute some callback.
-  * `dev`    : It will start development process, it will execute the `default` task and the `watch` task.
-  * `release` : It will start release process (production version of your code), it will execute `default` task and release tasks.
+  * `dev`    : Start development process, it will execute the `default` task and the `watch` task.
+  * `release`: Start release process (production version of your code), it will execute `default` task and release tasks.
+  * `test`   : Run and watch tests (you can also use `spec`, `watchTests` and `debugTests`).
 
 
 ## Details of the Major Tasks
