@@ -341,7 +341,7 @@ gulp.task 'minifyMarkupInReleaseFolder'   , ['copyMarkupToReleaseFolder'], minif
 gulp.task 'copyCssToReleaseFolder'        , ['cleanRelease'             ], -> copy( paths: paths.dev.cssFiles, dest: paths.release.cssDirectory)
 gulp.task 'copyImgToReleaseFolder'        , ['cleanRelease'             ], -> copy( paths: paths.dev.imgFiles, dest: paths.release.imgDirectory)
 gulp.task 'optimizeImgInReleaseFolder'    , ['copyImgToReleaseFolder'   ], optimizeImgInReleaseFolder
-gulp.task 'copyResourcesToReleaseFolder'  , ['cleanRelease'             ], -> copy( paths: paths.dev.resourcesFiles , dest: paths.release.resourcesDirectory.fonts )
+gulp.task 'copyResourcesToReleaseFolder'  , ['cleanRelease'             ], -> copy( paths: paths.dev.resourcesFiles , dest: paths.release.resourcesDirectory )
 
 gulp.task 'buildRelease', [
   'default'

@@ -34,7 +34,7 @@ angular.module('stateMock')
       return @expectedTransitions.push(stateName)
     
     @ensureAllTransitionsHappened = () => 
-      if @expectedTransitions.length > 0 then throw Error("Not all transitions happened!")
+      if @expectedTransitions.length > 0 then throw Error("Not all transitions happened!") else yes
       
-    
+    return @
   ]

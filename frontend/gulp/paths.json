@@ -75,12 +75,8 @@
     "jsFiles"             : "builds/release/scripts/**/*",
     "imgDirectory"        : "builds/release/img/",
     "imgFiles"            : "builds/release/img/**/*",
-    "resourcesDirectory"  : {
-      "fonts"  : "builds/release/resources/fonts/"
-    },
-    "resourcesFiles"  : {
-      "fonts"  : "builds/release/resources/fonts/**/*"
-    }
+    "resourcesDirectory"  : "builds/release/resources/",
+    "resourcesFiles"      : ["builds/release/resources/**/*", "!builds/release/resources/include-source-list"]
   },
 
   
@@ -94,7 +90,7 @@
         "builds/dev/libs/angular-mocks/angular-mocks.js",
         "builds/dev/libs/angular-sanitize/angular-sanitize.js",
         "builds/dev/libs/angular-bootstrap/ui-bootstrap-tpls.js",
-        "builds/dev/libs/underscore-string.js",
+        "builds/dev/libs/underscore-string/underscore-string.min.js",
         "builds/dev/libs/momentjs/min/moment-with-langs.js",
         "builds/dev/libs/quick-ng-repeat/quick-ng-repeat.js",
         "builds/dev/scripts/main/scripts/app.js",
@@ -113,20 +109,3 @@
 
     
 }
-
-
-
-
-    
-      
-      
-
-    
-    
-      
-    
-      
-
-    
-    
-    
