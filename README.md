@@ -1,5 +1,3 @@
-#Alpha Version Coming Soon...
-
 ![Omakase](logo.png "Omakase ngFeatures")
 
 # English
