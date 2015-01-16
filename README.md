@@ -1,4 +1,4 @@
-![Omakase](logo.png "Omakase ngFeatures")
+![Omakase](logo-ng-features.png "Omakase ngFeatures")
 
 # English
 
