@@ -2,6 +2,9 @@
 
 # English
 
+## Videos
+[Quick-talk Video](https://www.youtube.com/watch?v=aXK89_144Lw&index=1&list=PLYzy588NSY6JLjRDpVc5RIu6ej4D7ly8X) 
+
 ## Feature Scaffolding
 Scaffolding based on features, settings of the project and web components instead of framework's structure.
 
