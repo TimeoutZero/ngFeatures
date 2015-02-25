@@ -38,14 +38,14 @@ module.exports = function(config) {
 
     // Preprocessors
     preprocessors: {
-      'builds/dev/views/**/*.html' : ['ng-html2js'],
-      'builds/dev/scripts/**/*.js' : ['coverage']
+      'builds/dev/views/**/*.html'          : ['ng-html2js'],
+      'builds/dev/scripts/**/!(specs)/*.js' : ['coverage']
     },
 
     // HTML to JS
-    // ngHtml2JsPreprocessor: {
-    //   stripPrefix : 'builds/dev/'
-    // },
+    ngHtml2JsPreprocessor: {
+      stripPrefix : 'builds/dev/'
+    },
 
     // Reporters - Generates the Coverage
     reporters: [
